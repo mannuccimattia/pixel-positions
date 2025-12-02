@@ -1,3 +1,10 @@
-@props(['width' => 90])
+@props(['employer', 'width' => 90])
 
-<img src="https://picsum.photos/seed/{{ rand(0, 100000) }}/{{ $width }}" alt="Job employer logo" class="rounded-xl">
+@php
+    $src = $employer->logo;
+    if (!Str::contains($src, 'picsum')) {
+        $src = asset('/storage' . '/' . $employer->logo);
+    }
+@endphp
+
+<img src="{{ $src }}" alt="Job employer logo" class="rounded-xl" width="{{ $width }}">
